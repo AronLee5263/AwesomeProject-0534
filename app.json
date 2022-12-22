@@ -20,7 +20,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.aronlee.animalfacetest",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos.",
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -32,7 +36,11 @@
           "CAMERA",
           "READ_EXTERNAL_STORAGE"
         ]
-      }
+      },
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -45,7 +53,11 @@
           "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f869453e-8840-4579-b60e-a4a53b258602"
+      }
+    }
   }
 }
-

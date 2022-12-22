@@ -8,7 +8,7 @@ export default function App() {
     <WebView
       // style={styles.container}
       // source={{ uri: 'https://expo.dev' }}
-      style={{marginTop:20}}
+      style={{marginTop:50}}
       source={{ uri: 'https://animalface.site/' }}
     />
   );
