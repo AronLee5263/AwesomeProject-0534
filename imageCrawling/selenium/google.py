@@ -2,7 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-driver = webdriver.Chrome()
+# driver = webdriver.Chrome()
+driver = webdriver.Chrome(r"C:\Users\wjddn\Documents\AwesomeProject-0534\imageCrawling\selenium\chromedriver.exe")
+
 driver.get("https://www.google.co.kr/imghp?hl=ko&authuser=0&ogbl")
 elem = driver.find_element(By.NAME, "q") #위에서 찾은 구글 주소에 개발자 도구란에 요소 q로 찾음.#
 elem.send_keys("테니스")  # 키보드 입력값 전송#
