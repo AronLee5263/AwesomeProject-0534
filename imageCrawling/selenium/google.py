@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
+import urllib.request
+
 
 # driver = webdriver.Chrome()
 driver = webdriver.Chrome(r"C:\Users\wjddn\Documents\AwesomeProject-0534\imageCrawling\selenium\chromedriver.exe")
@@ -14,8 +16,12 @@ driver.find_elements_by_css_selector(".rg_i.Q4LuWd")[0].click()
 time.sleep(3)
 # print(driver.find_element_by_css_selector(".n3VNCb").get_attribute("src"))
 
-print(driver.find_element(By.CSS_SELECTOR, ".n3VNCb.KAlRDb").get_attribute("src"))
-
+imgUrl = driver.find_element(By.CSS_SELECTOR, ".n3VNCb.KAlRDb").get_attribute("src")
+ 
+opener=urllib.request.build_opener()
+opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+urllib.request.install_opener(opener)
+urllib.request.urlretrieve(imgUrl, "test.jpg")
 
 # assert "Python" in driver.title
 # elem = driver.find_element(By.NAME, "q")
