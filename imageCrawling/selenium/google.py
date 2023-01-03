@@ -28,15 +28,18 @@ while True:
     # Calculate new scroll height and compare with last scroll height
     new_height = driver.execute_script("return document.body.scrollHeight")
     if new_height == last_height:
-        break
+        try:
+            driver.find_element(By.CSS_SELECTOR ,(".mye4qd")).click() # 결과 더보기란#
+        except:
+            break
     last_height = new_height
 
 
-images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
+images = driver.find_elements(By.CSS_SELECTOR ,(".rg_i.Q4LuWd"))
 count = 1
 for img in images:
     img.click()
-    time.sleep(3)
+    time.sleep(0.5)
     # print(driver.find_element_by_css_selector(".n3VNCb").get_attribute("src"))
     imgUrl = driver.find_element(By.CSS_SELECTOR, ".n3VNCb").get_attribute("src")
     opener=urllib.request.build_opener()
