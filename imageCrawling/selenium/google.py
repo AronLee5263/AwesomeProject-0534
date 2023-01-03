@@ -42,7 +42,7 @@ for img in images:
         img.click()
         time.sleep(0.5)
         # print(driver.find_element_by_css_selector(".n3VNCb").get_attribute("src"))
-        imgUrl = driver.find_element(By.CSS_SELECTOR, ".n3VNCb").get_attribute("src")
+        imgUrl = driver.find_element(By.XPATH, "/html/body/div[2]/c-wiz/div[3]/div[2]/div[3]/div[2]/div/div[2]/div[2]/div[2]/c-wiz/div[2]/div[1]/div[1]/div[2]/div/a/img").get_attribute("src")
         opener=urllib.request.build_opener()
         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
         urllib.request.install_opener(opener)
@@ -50,7 +50,7 @@ for img in images:
         count = count + 1
     except:
         pass
-    
+
 driver.close()
 
 
