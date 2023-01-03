@@ -38,16 +38,21 @@ while True:
 images = driver.find_elements(By.CSS_SELECTOR ,(".rg_i.Q4LuWd"))
 count = 1
 for img in images:
-    img.click()
-    time.sleep(0.5)
-    # print(driver.find_element_by_css_selector(".n3VNCb").get_attribute("src"))
-    imgUrl = driver.find_element(By.CSS_SELECTOR, ".n3VNCb").get_attribute("src")
-    opener=urllib.request.build_opener()
-    opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
-    urllib.request.install_opener(opener)
-    urllib.request.urlretrieve(imgUrl, str(count) + ".jpg")
-    count = count + 1
- 
+    try: 
+        img.click()
+        time.sleep(0.5)
+        # print(driver.find_element_by_css_selector(".n3VNCb").get_attribute("src"))
+        imgUrl = driver.find_element(By.CSS_SELECTOR, ".n3VNCb").get_attribute("src")
+        opener=urllib.request.build_opener()
+        opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+        urllib.request.install_opener(opener)
+        urllib.request.urlretrieve(imgUrl, str(count) + ".jpg")
+        count = count + 1
+    except:
+        pass
+    
+driver.close()
+
 
 
 # opener=urllib.request.build_opener()
