@@ -12,6 +12,26 @@ driver.get("https://www.google.co.kr/imghp?hl=ko&authuser=0&ogbl")
 elem = driver.find_element(By.NAME, "q") #위에서 찾은 구글 주소에 개발자 도구란에 요소 q로 찾음.#
 elem.send_keys("테니스")  # 키보드 입력값 전송#
 elem.send_keys(Keys.RETURN)
+
+
+SCROLL_PAUSE_TIME = 1.5
+# Get scroll height
+last_height = driver.execute_script("return document.body.scrollHeight")
+
+while True:
+    # Scroll down to bottom
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    # Wait to load page
+    time.sleep(SCROLL_PAUSE_TIME)
+
+    # Calculate new scroll height and compare with last scroll height
+    new_height = driver.execute_script("return document.body.scrollHeight")
+    if new_height == last_height:
+        break
+    last_height = new_height
+
+
 images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
 count = 1
 for img in images:
