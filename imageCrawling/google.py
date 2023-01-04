@@ -51,7 +51,7 @@ for img in images:
         count = count + 1
     except:
         pass
-
+    if(count == 40) : break
 driver.close()
 
 
