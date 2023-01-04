@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\이정운\Documents\Project\AwsomeProject-0543\imageCrawling\selenium\selenium
+set VIRTUAL_ENV=C:\Users\wjddn\Documents\imageCrawling\selenium\selenium
 
 if not defined PROMPT set PROMPT=$P$G
 

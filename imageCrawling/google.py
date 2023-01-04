@@ -6,7 +6,8 @@ import urllib.request
 
 
 # driver = webdriver.Chrome()
-driver = webdriver.Chrome(r"C:\Users\wjddn\Documents\AwesomeProject-0534\imageCrawling\selenium\chromedriver.exe")
+# driver = webdriver.Chrome(r"C:\Users\wjddn\Documents\AwesomeProject-0534\imageCrawling\selenium\chromedriver.exe")
+driver = webdriver.Chrome(r"C:\Users\이정운\Documents\Project\AwsomeProject-0543\imageCrawling\selenium\chromedriver.exe")
 
 driver.get("https://www.google.co.kr/imghp?hl=ko&authuser=0&ogbl")
 elem = driver.find_element(By.NAME, "q") #위에서 찾은 구글 주소에 개발자 도구란에 요소 q로 찾음.#
