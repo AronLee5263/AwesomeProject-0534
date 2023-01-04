@@ -16,7 +16,8 @@ credentials.json
 # macOS
 .DS_Store
 
-
+#동물상 테스트 남자 연예인 사진 폴더
+animal-face-data/
 
 
 #python for imagecrawling 2023.01.03 소스트리  커밋 확인하기
