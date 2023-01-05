@@ -11,8 +11,12 @@
 
 <body>
     <!--Teachable Machine 웹에서 머신 학습 시킨다음에 복사한 js 코드  -->
-    <div>Teachable Machine Image Model</div>
+    <div>닮은 동물상 테스트</div>
+    <br>
+    <div>'Start' 버튼을 누른 후 사진을 업로드 하고 '분석' 버튼을 누르세요</div><br>
     <button type="button" onclick="init()">Start</button>
+    <button type="button" onclick="predict()">분석</button>
+
 
     <!--이미지 업로드 코드펜 html 코드 복붙 https://codepen.io/aaronvanston/pen/yNYOXR  -->
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -26,8 +30,8 @@
                 <h3>Drag and drop a file or select add Image</h3>
             </div>
         </div>
-        <div class="file-upload-content">
-            <img class="file-upload-image" src="#" alt="your image" />
+        <div class="file-upload-content"> 
+            <img class="file-upload-image" id="face-image" src="#" alt="your image" />
             <div class="image-title-wrap">
                 <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
                         class="image-title">Uploaded Image</span></button>
@@ -96,7 +100,6 @@
             model = await tmImage.load(modelURL, metadataURL);
             maxPredictions = model.getTotalClasses();
             // append elements to the DOM
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
             labelContainer = document.getElementById("label-container");
             for (let i = 0; i < maxPredictions; i++) { // and class labels
                 labelContainer.appendChild(document.createElement("div"));
@@ -108,7 +111,9 @@
         // run the webcam image through the image model
         async function predict() {
             // predict can take in an image, video or canvas html element
-            const prediction = await model.predict(이미지);
+
+            var image = document.getElementById("face-image")
+            const prediction = await model.predict(image, false);
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
