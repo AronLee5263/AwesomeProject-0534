@@ -14,14 +14,6 @@
 </head>
 <!--// 부트스트랩 head  -->
 
-
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head> -->
-
 <body>
     <nav class="navbar navbar-expand-lg nav-distance">
         <div class="container-fluid">
@@ -64,6 +56,17 @@
             </div>
         </div>
     </nav>
+    <section class="section">
+        <h1 class="title">인공지능 동물상 테스트 (남자.ver)</h1>
+        <h2 class="subtitle">나는 어떤 동물과 닮았을까?</h2>
+    </section>
+
+    <section class="youtube">
+        <div class="container mt-5 youtube-cover d-flex flex-row-reverse">
+            <img src="image/balloon-heart.svg" alt="" class="smile-icon">
+            <a href="" class="youtube-link">By jw</a>
+        </div>
+    </section>
 
 
 
@@ -72,23 +75,23 @@
 
 
     <!--Teachable Machine 웹에서 머신 학습 시킨다음에 복사한 js 코드  -->
-    <div>닮은 동물상 테스트</div>
     <br>
-    <div>'Start' 버튼을 누른 후 사진을 업로드 하고 '분석' 버튼을 누르세요</div><br>
+    <div class="explain">사진을 업로드 하고 'Start' 버튼을 누른 후 '분석' 버튼을 누르세요</div><br>
     <button type="button" onclick="init()">Start</button>
     <button type="button" onclick="predict()">분석</button>
 
 
     <!--이미지 업로드 코드펜 html 코드 복붙 https://codepen.io/aaronvanston/pen/yNYOXR  -->
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <div class="file-upload">
-        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
-            Image</button>
+    <div class="container file-upload">
+        <!-- <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+            Image</button> -->
 
         <div class="image-upload-wrap">
             <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
             <div class="drag-text">
-                <h3>Drag and drop a file or select add Image</h3>
+                <img src="image/box-arrow-in-down.svg" alt="" class="upload mt-5 pb-2 upload-image-icon">
+                <h3 class=" mb-5 pb-5 pt-2 upload-text">얼굴 사진을 드래그 하거나 눌러서 업로드 하세요!</h3>
             </div>
         </div>
         <div class="file-upload-content">
