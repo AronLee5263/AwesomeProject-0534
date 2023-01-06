@@ -156,7 +156,11 @@
                 };
 
                 reader.readAsDataURL(input.files[0]);
-                init()
+                init().then(()=>{
+                    console.log("hello");
+                    predict();
+                })
+                // predict();
             } else {
                 removeUpload();
             }
