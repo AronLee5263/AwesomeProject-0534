@@ -77,7 +77,6 @@
     <!--Teachable Machine 웹에서 머신 학습 시킨다음에 복사한 js 코드  -->
     <br>
     <div class="explain">사진을 업로드 하고 'Start' 버튼을 누른 후 '분석' 버튼을 누르세요</div><br>
-    <button type="button" onclick="init()">Start</button>
     <button type="button" onclick="predict()">분석</button>
 
 
@@ -157,7 +156,7 @@
                 };
 
                 reader.readAsDataURL(input.files[0]);
-
+                init()
             } else {
                 removeUpload();
             }
