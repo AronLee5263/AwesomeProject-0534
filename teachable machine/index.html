@@ -76,8 +76,8 @@
 
     <!--Teachable Machine 웹에서 머신 학습 시킨다음에 복사한 js 코드  -->
     <br>
-    <div class="explain">사진을 업로드 하고 'Start' 버튼을 누른 후 '분석' 버튼을 누르세요</div><br>
-    <button type="button" onclick="predict()">분석</button>
+    
+    <!-- <button type="button" onclick="predict()">분석</button> -->
 
 
     <!--이미지 업로드 코드펜 html 코드 복붙 https://codepen.io/aaronvanston/pen/yNYOXR  -->
@@ -95,6 +95,8 @@
         </div>
         <div class="file-upload-content">
             <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+            <div id="label-container"></div>
+
             <div class="image-title-wrap">
                 <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
                         class="image-title">Uploaded Image</span></button>
@@ -105,7 +107,6 @@
 
 
     <div id="webcam-container"></div>
-    <div id="label-container"></div>
     <!-- disqus 댓글기능  -->
     <div id="disqus_thread"></div>
     <script>
@@ -156,7 +157,7 @@
                 };
 
                 reader.readAsDataURL(input.files[0]);
-                init().then(()=>{
+                init().then(() => {
                     console.log("hello");
                     predict();
                 })
@@ -214,6 +215,8 @@
 
             var image = document.getElementById("face-image")
             const prediction = await model.predict(image, false);
+            prediction.sort((b,a) => parseFloat(a.probability) - parseFloat(b.probability));
+            console.log(prediction);
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
