@@ -107,8 +107,8 @@ body {
 }
 
 .file-upload-image {
-    max-height: 500px;
-    max-width: 500px;
+    max-height: 200px;
+    max-width: 200px;
     margin: auto;
     padding: 20px;
 }
