@@ -159,7 +159,7 @@
 
                 reader.readAsDataURL(input.files[0]);
                 init().then(() => {
-                    console.log("hello");
+                    console.log("init이 끝날떄까지 기다리는중");
                     predict();
                 })
                 // predict();
@@ -241,7 +241,7 @@
                 default:
                     resultMessege = '알 수 없음'       
             }
-            $('.result-message').html(resultMessege);
+            $('.result-messege').html(resultMessege);
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
