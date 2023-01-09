@@ -243,8 +243,10 @@
             }
             $('.result-messege').html(resultMessege);
             for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+
+                barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + "%";
+
+                const classPrediction = prediction[i].className + ": " + barWidth;
                 labelContainer.childNodes[i].innerHTML = classPrediction;
             }
         }
