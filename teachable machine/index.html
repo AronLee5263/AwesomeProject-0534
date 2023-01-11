@@ -6,11 +6,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <title>Bootstrap demo</title>
     <link rel="stylesheet" href="style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145482737-6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-145482737-6');
+    </script>
 </head>
 <!--// 부트스트랩 head  -->
 
@@ -95,13 +107,42 @@
         </div>
         <div class="file-upload-content">
             <img class="file-upload-image" id="face-image" src="#" alt="your image" />
-            <p class="result-message"> </p>
+            <div id="loading" class="animated bounce">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                    <!-- 원래는 이거여
+                    <span class="sr-only">Loading...</span>
+                     -->
+                </div>
+                <p class="text-center">AI가 당신의 동물상을 분석중입니다.</p>
+            </div>
+            <!-- 원래 코드 -->
+            <!-- <p class="result-message"></p> 
             <div id="label-container"></div>
 
             <div class="image-title-wrap">
                 <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
                         class="image-title">Uploaded Image</span></button>
+            </div> -->
+            <!-- 추가 코드 -->
+            <p class="result-message"></p>
+            <div id="label-container" class="d-flex flex-column justify-content-around"></div>
+            <div id="addThis" class="addthis_inline_share_toolbox_6lz1"></div>
+
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">다른 사진으로 재시도 
+                    <br>
+                    <span class="image-title">Uploaded Image</span>
+                </button>
             </div>
+            
+            <!-- <div class="pt-3 image-title-wrap">
+                <button type="button p-2" class="try-again-btn" onclick="gaReload1();" data-toggle="modal" data-target="#adModal">
+                    <span class="try-again-text">다른 사진으로 재시도</span>
+                </button>
+            </div> -->
+            <!-- 추가 코드 -->
+
         </div>
     </div>
     <!-- // 이미지 업로드 코드펜 html 코드 복붙 https://codepen.io/aaronvanston/pen/yNYOXR  -->
@@ -145,27 +186,24 @@
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
-
                 var reader = new FileReader();
-
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $('.image-upload-wrap').hide();
-
+                    $('#loading').show();
                     $('.file-upload-image').attr('src', e.target.result);
                     $('.file-upload-content').show();
-
                     $('.image-title').html(input.files[0].name);
                 };
-
                 reader.readAsDataURL(input.files[0]);
-                init().then(() => {
-                    console.log("init이 끝날떄까지 기다리는중");
+                init().then(function() {
+                    console.log("hello");
                     predict();
-                })
-                // predict();
+                    $('#loading').hide();
+                });
             } else {
                 removeUpload();
             }
+
         }
 
         function removeUpload() {
@@ -204,7 +242,10 @@
             // append elements to the DOM
             labelContainer = document.getElementById("label-container");
             for (let i = 0; i < maxPredictions; i++) { // and class labels
-                labelContainer.appendChild(document.createElement("div"));
+                var element = document.createElement("div")
+                element.classList.add("d-flex");
+                labelContainer.appendChild(element);
+                // labelContainer.appendChild(document.createElement("div"));
             }
         }
 
@@ -212,7 +253,7 @@
             var image = document.getElementById("face-image")
             const prediction = await model.predict(image, false);
             prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-            console.log(prediction);
+            console.log(prediction[0].className);
             var resultTitle, resultExplain, resultCeleb;
             var resultTitle;
             switch (prediction[0].className) {
@@ -220,13 +261,13 @@
                     resultTitle = "귀여운 순둥이 강아지상"
                     resultExplain = "다정다감하고 귀여운 당신은 모든 사람들에게 즐거움을 주는 호감형이다! 친절하고 활발한 성격으로 어디에서도 인기폭발이며 애교와 웃음이 많아 연인에게 특히나 사랑스럽다. 당신은 애인바라기로 애인의 관심이 부족하면 시무룩해지고 외로움을 타는 모습이 마치 강아지와 똑 닮았다!"
                     resultCeleb = "강아지상 연예인: 강다니엘, 백현(엑소), 박보검, 송중기"
-                    gtag('event', '남자 결과 강아지상', { 'event_category': '남자 결과' });
+                    // gtag('event', '남자 결과 강아지상', { 'event_category': '남자 결과' });
                     break;
                 case "cat":
                     resultTitle = "츤데레 매력쟁이 고양이상"
                     resultExplain = "무뚝뚝한 당신의 첫인상은 차가워 보이지만 묘한 매력을 풍겨 언제나 인기가 넘친다. 자존심이 세계 1등과 맞먹지만 관심 받는 것을 좋아하고 연인에게는 은근히 애교쟁이다. 시크한 츤데레로 연인에게 끊임없이 설렘을 안겨주는 당신은 고양이와 닮았다!"
                     resultCeleb = "고양이상 연예인: 황민현(뉴이스트), 시우민(엑소), 강동원, 이종석, 이준기"
-                    gtag('event', '남자 결과 고양이상', { 'event_category': '남자 결과' });
+                    // gtag('event', '남자 결과 고양이상', { 'event_category': '남자 결과' });
                     break;
                 // case "rabbit":
                 //     resultTitle = "천진난만한 매력의 토끼상"
@@ -238,38 +279,95 @@
                     resultTitle = "따뜻한 나쁜남자 공룡상"
                     resultExplain = "무심한 성격에 첫인상은 나쁜 남자 같지만, 알고 보면 따뜻함이 묻어나는 당신! 시크한 매력에 선뜻 다가가지 못하지만 한번 다가가면 헤어나올 수 없는 터프한 매력을 가진 카리스마 있는 남자다."
                     resultCeleb = "공룡상 연예인: 윤두준(하이라이트), 이민기, 김우빈, 육성재(비투비), 공유"
-                    gtag('event', '남자 결과 공룡상', { 'event_category': '남자 결과' });
+                    // gtag('event', '남자 결과 공룡상', { 'event_category': '남자 결과' });
                     break;
                 case "bear":
                     resultTitle = "포근한 매력의 곰상"
                     resultExplain = "첫 인상은 무서워 보이지만 알고 보면 귀여운 매력의 당신! 꼼꼼하고 섬세한 성격으로 연인을 헌신적으로 챙겨주는 당신은 연인에게 듬직한 존재! 포근한 매력에 듬직함까지 갖춘 최고의 남자다!"
                     resultCeleb = "곰상 연예인: 마동석, 조진웅, 안재홍"
-                    gtag('event', '남자 결과 곰상', { 'event_category': '남자 결과' });
+                    // gtag('event', '남자 결과 곰상', { 'event_category': '남자 결과' });
                     break;
                 case "joseho":
-                    resultTitle = '조세호상'
+                    resultTitle = "조세호상"
                     resultExplain = "첫 인상은 동글동글 통통튀는 귀여운 매력의 당신! 유쾌한 성격으로 연인에게 웃음을 선사하는 당신은 곰돌이 푸같은 존재! 편안한 매력에 유머까지 겸비한 당신은 매력적인 남자다!"
                     resultCeleb = "조세호상 연예인: 조세호"
                     break;
                 case "statue":
-                    resultTitle = '조각상'
+                    resultTitle = "조.각.상"
                     resultExplain = "첫 인상은 그냥 천상 연예인! 어딜가나 주목받는 외모로 사람들의 시선을 한몸에 받는 당신.. 차마 동물로 분류할 수 없어 조각상으로 불리우는 당신은 얼굴 천재!!"
                     resultCeleb = "조각상 연예인: 차은우, 강동원, 원빈"
                     break;
                 default:
-                    resultTitle = "알수없음"
+                    resultTitle = "알 수 없음"
                     resultExplain = ""
                     resultCeleb = ""
-                    // gtag('event', '남자 결과 알수없음', { 'event_category': '남자 결과' });
+                // gtag('event', '남자 결과 알수없음', { 'event_category': '남자 결과' });
             }
-            $('.result-message').html(resultTitle);
+            var title = "<div class='" + prediction[0].className + "-animal-title'>" + resultTitle + "</div>"
+            var explain = "<div class='animal-explain pt-2'>" + resultExplain + "</div>"
+            var celeb = "<div class='" + prediction[0].className + "-animal-celeb pt-2 pb-2'>" + resultCeleb + "</div>"
+            $('.result-message').html(title + explain + celeb);
+
+            var barWidth;
             for (let i = 0; i < maxPredictions; i++) {
+                if (prediction[i].probability.toFixed(2) > 0.1) {
+                    barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + "%";
+                } else if (prediction[i].probability.toFixed(2) >= 0.01) {
+                    barWidth = "4%"
+                } else {
+                    barWidth = "2%"
+                }
+                var labelTitle;
+                switch (prediction[i].className) {
+                    case "dog":
+                        labelTitle = "강아지상"
+                        break;
+                    case "cat":
+                        labelTitle = "고양이상"
+                        break;
+                    // case "rabbit":
+                    //     labelTitle = "토끼상"
+                    //     break;
+                    case "dinosaur":
+                        labelTitle = "공룡상"
+                        break;
+                    case "bear":
+                        labelTitle = "곰상"
+                        break;
+                    case "joseho":
+                        labelTitle = "조세호상"
+                        break;
+                    case "statue":
+                        labelTitle = "조.각.상"
+                        break;
+                    // case "deer":
+                    //     labelTitle = "사슴상"
+                    //     break;
+                    // case "fox":
+                    //     labelTitle = "여우상"
+                    //     break;
+                    default:
+                        labelTitle = "알수없음"
+                }
+                var label = "<div class='animal-label d-flex align-items-center'>" + labelTitle + "</div>"
 
-                barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + "%";
-
-                const classPrediction = prediction[i].className + ": " + barWidth;
-                labelContainer.childNodes[i].innerHTML = classPrediction;
+                var bar = "<div class='bar-container position-relative container'><div class='" +
+                    prediction[i].className + "-box'></div><div class='d-flex justify-content-center align-items-center " +
+                    prediction[i].className + "-bar' style='width: " + barWidth + "'><span class='d-block percent-text'>" +
+                    Math.round(prediction[i].probability.toFixed(2) * 100) + "%</span></div></div>"
+                labelContainer.childNodes[i].innerHTML = label + bar;
             }
+
+
+            // 원래 코드
+            // for (let i = 0; i < maxPredictions; i++) {
+
+            //     barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + "%";
+
+            //     const classPrediction = prediction[i].className + ": " + barWidth;
+            //     labelContainer.childNodes[i].innerHTML = classPrediction;
+            // }
+            // 원/래 코드
         }
     </script>
     <!--Teachable Machine 웹에서 머신 학습 시킨다음에 복사한 js 코드  -->
