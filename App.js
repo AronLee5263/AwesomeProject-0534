@@ -9,7 +9,7 @@ export default function App() {
       // style={styles.container}
       // source={{ uri: 'https://expo.dev' }}
       style={{marginTop:50}}
-      source={{ uri: 'https://animalface.site/' }}
+      source={{ uri: 'https://aronlee-animal-face.netlify.app/' }}
     />
   );
 }
